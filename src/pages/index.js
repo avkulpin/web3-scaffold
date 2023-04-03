@@ -3,7 +3,9 @@ import { useNetwork } from '../queries/useNetwork';
 import { useAccount, useAccountConnect } from '../queries/useAccount';
 
 export default function Home() {
-  const { address, ensName } = useAccount();
+  const { name: chainName } = useNetwork();
+  const address = useAccount();
+
   const { connect } = useAccountConnect();
 
   return (
@@ -15,12 +17,13 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main>
-        <h1>{`Hello, ${ensName ?? address}`}</h1>
-        {ensName ?? address ? (
-          <button onClick={() => connect(false)}>Disconnect</button>
-        ) : (
-          <button onClick={() => connect()}>Connect</button>
-        )}
+        <h1>{`Hello, ${address}`}</h1>
+        <h2>{chainName}</h2>
+        {/*{ensName ?? address ? (*/}
+        {/*  <button onClick={() => connect(false)}>Disconnect</button>*/}
+        {/*) : (*/}
+        {/*  <button onClick={() => connect()}>Connect</button>*/}
+        {/*)}*/}
       </main>
     </>
   );

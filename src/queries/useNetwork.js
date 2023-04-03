@@ -5,12 +5,19 @@ import { useProvider } from './useProvider';
 export const useNetwork = () => {
   const provider = useProvider();
 
-  const { data } = useQuery(['network', provider], async () => provider.getNetwork(), {
-    enabled: Boolean(provider),
-  });
+  const { data } = useQuery(
+    ['network', provider?.id],
+    async () => await provider.getNetwork(),
+    {
+      enabled: Boolean(provider),
+    },
+  );
 
-  return useMemo(() => ({
-    name: data.name,
-    chainId: Number(data.chainId),
-  }), [data])
+  return useMemo(
+    () => ({
+      name: data?.name,
+      chainId: Number(data?.chainId),
+    }),
+    [data],
+  );
 };
